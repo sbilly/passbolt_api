@@ -13,22 +13,18 @@ addons:
 
 services:
   - memcached
-  - mysql-server
 
 matrix:
    include:
      - php: 5.5
        env: DB=mysql
        dist: trusty
-       addons:
-         apt:
-           packages:
-             - mysql-server-5.6
+       sudo: true
 
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install --dev --no-interaction
-  - echo mysql --version
+  - if [ $DB = 'mysql' ]; then sudo apt-get -y install mysql-server; fi
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE passbolt;'; fi"
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE passbolt_test;'; fi"
   - chmod -R 777 ./app/tmp
