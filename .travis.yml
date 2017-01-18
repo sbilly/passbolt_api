@@ -9,7 +9,7 @@ addons:
     - php5-curl
     - php5-mcrypt
     - gnupg2
-
+    - ${SQL_SERVER_PKG}
 php:
   - 5.5
   - 5.6
@@ -17,7 +17,7 @@ php:
 #  - 7.1
 
 env:
-  - DB=mysql
+  - SQL_SERVER_PKG=mysql-server-5.6 SQL_SERVER=mysql
 
 services:
   - memcached
@@ -28,9 +28,8 @@ matrix:
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install --dev --no-interaction
-  - if [ $DB = 'mysql' ]; then sudo apt-get -y install mysql-server; fi
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE passbolt;'; fi"
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE passbolt_test;'; fi"
+  - sh -c "if [ '$SQL_SERVER' = 'mysql' ]; then mysql -e 'CREATE DATABASE passbolt;'; fi"
+  - sh -c "if [ '$SQL_SERVER' = 'mysql' ]; then mysql -e 'CREATE DATABASE passbolt_test;'; fi"
   - chmod -R 777 ./app/tmp
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.3" ]] ; then pecl install timezonedb ; fi
   - sh -c "if [ '$PHPCS' = '1' ]; then composer global require 'cakephp/cakephp-codesniffer:1.*'; fi"
