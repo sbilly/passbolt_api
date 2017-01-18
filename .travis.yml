@@ -26,6 +26,8 @@ matrix:
    include:
      - php: 5.5
        env: DB=mysql
+       dist: trusty
+       sudo: required
        addons:
          apt:
            packages:
