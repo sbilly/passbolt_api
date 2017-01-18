@@ -47,7 +47,7 @@ before_script:
         'datasource' => 'Database/Mysql',
         'database' => 'passbolt',
         'host' => '127.0.0.1',
-        'login' => 'travis',
+        'login' => '${USER}',
         'password' => '',
         'persistent' => false,
       );
@@ -55,7 +55,7 @@ before_script:
         'datasource' => 'Database/Mysql',
         'database' => 'passbolt_test',
         'host' => '127.0.0.1',
-        'login' => 'travis',
+        'login' => '${USER}',
         'password' => '',
         'persistent' => false,
       );
