@@ -19,7 +19,7 @@ matrix:
      - php: 5.5
        env: DB=mysql
        dist: trusty
-       sudo: true
+       sudo: required
        addons:
          apt:
            packages:
