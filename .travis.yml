@@ -21,7 +21,6 @@ matrix:
        dist: trusty
        sudo: required
        before_install:
-         - sudo rm /etc/apt/sources.list.d/mysql.list
          - sudo service mysql stop
          - sudo rm -rf /var/lib/mysql
          - sudo apt-get remove apparmor
