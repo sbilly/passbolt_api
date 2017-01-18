@@ -9,7 +9,7 @@ addons:
     - php5-curl
     - php5-mcrypt
     - gnupg2
-    - ${EXTRA_PKGS}
+
 php:
   - 5.5
   - 5.6
@@ -23,7 +23,13 @@ services:
   - memcached
 
 matrix:
-  fast_finish: true
+   include:
+     - php: 5.5
+       env: DB=mysql
+       addons:
+         apt:
+           packages:
+             - mysql-server-5.6
 
 before_script:
   - wget http://getcomposer.org/composer.phar
