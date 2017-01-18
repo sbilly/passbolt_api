@@ -19,6 +19,7 @@ php:
 
 services:
   - memcached
+  - mysql
 
 matrix:
    include:
