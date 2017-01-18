@@ -28,7 +28,7 @@ matrix:
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install --dev --no-interaction
-  - sudo service mysql-server restart
+  - sudo service mysql restart
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE passbolt;'; fi"
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE passbolt_test;'; fi"
   - chmod -R 777 ./app/tmp
