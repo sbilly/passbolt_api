@@ -2,7 +2,7 @@ language: php
 
 addons:
   apt:
-    packages:
+    packages: &default_packages
     - libgpgme11-dev
     - php5-memcached
     - php5-common
@@ -23,6 +23,7 @@ matrix:
        addons:
          apt:
            packages:
+             - *default_packages
              - mysql-server-5.6
 
 before_script:
