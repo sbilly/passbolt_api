@@ -36,18 +36,16 @@ matrix:
 #         - sudo service mysql stop
 #         - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.6 mysql-server-core-5.6 mysql-client-5.6
 #         - sudo service mysql restart
-#     - php: 5.6
-#       env: DB=mysql MYSQL_SERVER_VERSION=5.5
-#       dist: trusty
-#       sudo: required
-#       before_install:
-#         - *mysql_install_55
-#     - php: 5.6
-#       env: DB=mysql MYSQL_SERVER_VERSION=5.6
-#       dist: trusty
-#       sudo: required
-#       before_install:
-#         - *mysql_install_56
+     - php: 5.6
+       env: DB=mysql MYSQL_SERVER_VERSION=5.5
+       dist: trusty
+       sudo: required
+       before_install:
+         - *mysql_install_55
+     - php: 5.6
+       env: DB=mysql MYSQL_SERVER_VERSION=5.6
+       dist: trusty
+       sudo: required
 #       addons:
 #         apt:
 #           packages:
