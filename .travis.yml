@@ -2,14 +2,21 @@ language: php
 
 addons:
   apt:
-    packages: &default_packages
-    - libgpgme11-dev
-    - php5-memcached
-    - php5-common
-    - php5-curl
-    - php5-mcrypt
-    - php5-mysql
-    - gnupg2
+    packages: &pkg_default
+      - libgpgme11-dev
+      - gnupg2
+    packages: &pkg_php5_packages
+      - php5-memcached
+      - php5-common
+      - php5-curl
+      - php5-mcrypt
+      - php5-mysql
+    packages: &pkg_php7_packages
+      - php7-memcached
+      - php7-common
+      - php7-curl
+      - php7-mcrypt
+      - php7-mysql
 
 services:
   - memcached
@@ -20,49 +27,51 @@ matrix:
        env: DB=mysql MYSQL_SERVER_VERSION=5.5
        dist: trusty
        sudo: required
+       addons: &php5_addon
+         apt:
+           packages:
+             - php5-memcached
+             - php5-common
+             - php5-curl
+             - php5-mcrypt
+             - php5-mysql
+       # Mysql 5.5 requires extra operations to be installed.
        before_install:
          - sudo service mysql stop
          - sudo rm -fr /var/lib/mysql
          - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.5 mysql-server-core-5.5 mysql-client-5.5
-         - sudo apt-get autoremove
-         - sudo apt-get autoclean
          - sudo service mysql restart
-#     - php: 5.5
-#       env: DB=mysql MYSQL_SERVER_VERSION=5.6
-#       dist: trusty
-#       sudo: required
-#       # mysql 5.6 is install by default on the travis container
-##       before_install: &mysql_install_56
-##         - sudo service mysql stop
-##         - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.6 mysql-server-core-5.6 mysql-client-5.6
-##         - sudo service mysql restart
-#     - php: 5.6
-#       env: DB=mysql MYSQL_SERVER_VERSION=5.5
-#       dist: trusty
-#       sudo: required
-#       before_install:
-#         - *mysql_install_55
-#     - php: 5.6
+     - php: 5.5
+       env: DB=mysql MYSQL_SERVER_VERSION=5.6
+       dist: trusty
+       sudo: required
+       addons: *php5_addon
+     - php: 5.6
+       env: DB=mysql MYSQL_SERVER_VERSION=5.5
+       dist: trusty
+       sudo: required
+       addons: *php5_addon
+       # Mysql 5.5 requires extra operations to be installed.
+       before_install:
+         - sudo service mysql stop
+         - sudo rm -fr /var/lib/mysql
+         - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.5 mysql-server-core-5.5 mysql-client-5.5
+         - sudo service mysql restart
+       addons:
+         apt:
+           packages: *pkg_php5_packages
+     - php: 5.6
+       env: DB=mysql MYSQL_SERVER_VERSION=5.6
+       dist: trusty
+       sudo: required
+       addons: *php5_addon
+#     - php: 7
 #       env: DB=mysql MYSQL_SERVER_VERSION=5.6
 #       dist: trusty
 #       sudo: required
 #       addons:
 #         apt:
-#           packages:
-#             - *default_packages
-#             - mysql-server-5.6
-#     - php: 7
-#       env: DB=mysql MYSQL_SERVER_VERSION=5.6
-#       dist: trusty
-#       sudo: required
-#       before_install:
-#         - sudo service mysql stop
-#         - sudo rm -rf /var/lib/mysql
-#         - sudo apt-get remove --purge mysql-server mysql-server-core mysql-client
-#         - sudo apt-get autoremove
-#         - sudo apt-get autoclean
-#         - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.6 mysql-server-core-5.6 mysql-client-5.6
-#         - sudo service mysql start
+#           packages: *pkg_php7_packages
 
 before_script:
   - wget http://getcomposer.org/composer.phar
