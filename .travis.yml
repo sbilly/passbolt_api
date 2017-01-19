@@ -21,6 +21,7 @@ matrix:
        dist: trusty
        sudo: required
        before_install:
+         - sudo service mysql stop
          - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.5 mysql-server-core-5.5 mysql-client-5.5
          - sudo service mysql restart
      - php: 5.6
@@ -28,6 +29,7 @@ matrix:
        dist: trusty
        sudo: required
        before_install:
+         - sudo service mysql stop
          - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.6 mysql-server-core-5.6 mysql-client-5.6
          - sudo service mysql restart
 #       addons:
