@@ -27,6 +27,8 @@ matrix:
              - mysql-server-core-5.5
              - mysql-server-5.5
              - mysql-client-5.5
+       before_install: &mysql_install_55
+         - sudo service mysql stop; sudo rm -fr /var/lib/mysql
 #       before_install: &mysql_install_55
 #         - sudo service mysql stop
 #         - sudo rm -fr /var/lib/mysql
