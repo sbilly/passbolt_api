@@ -79,6 +79,7 @@ matrix:
         apt:
           packages:
             - *common_pkg
+            - php-gnupg
 
   allow_failures:
     - php: 5.6
@@ -148,7 +149,7 @@ before_script:
 
 script:
   - mkdir -p build/logs
-  - app/Console/cake test app All --stderr --coverage-clover build/logs/clover.xml --configuration=app/Test/phpunit.xml
+  - app/Console/cake test app All --stderr --coverage-clover build/logs/clover.xml --configuration=app/Test/phpunit.xml --filter=GpgkeyTest
 
 after_script:
   - php Vendor/bin/coveralls -v
