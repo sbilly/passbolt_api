@@ -23,10 +23,8 @@ matrix:
        before_install:
          - sudo service mysql stop
          - sudo rm -rf /var/lib/mysql
-         - sudo apt-get remove --purge mysql-server mysql-server-core mysql-client
-         - sudo apt-get autoremove
-         - sudo apt-get autoclean
          - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.5 mysql-server-core-5.5 mysql-client-5.5
+         - sudo service mysql start
      - php: 5.6
        env: DB=mysql MYSQL_SERVER_VERSION=5.6
        dist: trusty
@@ -34,10 +32,8 @@ matrix:
        before_install:
          - sudo service mysql stop
          - sudo rm -rf /var/lib/mysql
-         - sudo apt-get remove --purge mysql-server mysql-server-core mysql-client
-         - sudo apt-get autoremove
-         - sudo apt-get autoclean
          - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.6 mysql-server-core-5.6 mysql-client-5.6
+         - sudo service mysql start
 #       addons:
 #         apt:
 #           packages:
