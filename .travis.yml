@@ -138,8 +138,8 @@ script:
   - mkdir -p build/logs
   - app/Console/cake test app All --stderr --coverage-clover build/logs/clover.xml --configuration=app/Test/phpunit.xml
 
-#after_script:
-#  - php Vendor/bin/coveralls -v
+after_script:
+  - php Vendor/bin/coveralls -v
 
 notifications:
   email: false
