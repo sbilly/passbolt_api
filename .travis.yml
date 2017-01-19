@@ -2,35 +2,23 @@ language: php
 
 addons:
   apt:
-    packages: &pkg_default
+    packages:
       - libgpgme11-dev
       - gnupg2
-    packages: &pkg_php5_packages
-      - php5-memcached
-      - php5-common
-      - php5-curl
-      - php5-mcrypt
-      - php5-mysql
-    packages: &pkg_php7_packages
-      - php7-memcached
-      - php7-common
-      - php7-curl
-      - php7-mcrypt
-      - php7-mysql
 
 services:
   - memcached
 
 matrix:
    include:
+     # PHP 5.5 / MYSQL 5.5
      - php: 5.5
-       env: DB=mysql MYSQL_SERVER_VERSION=5.5
+       env: DB=mysql MYSQL_VERSION=5.5
        dist: trusty
        sudo: required
        addons: &php5_addon
          apt:
            packages:
-             - *pkg_default
              - php5-memcached
              - php5-common
              - php5-curl
@@ -42,29 +30,65 @@ matrix:
          - sudo rm -fr /var/lib/mysql
          - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.5 mysql-server-core-5.5 mysql-client-5.5
          - sudo service mysql restart
+
+     # PHP 5.5 / MYSQL 5.6
      - php: 5.5
-       env: DB=mysql MYSQL_SERVER_VERSION=5.6
+       env: DB=mysql MYSQL_VERSION=5.6
        dist: trusty
        sudo: required
        addons: *php5_addon
+
+     # PHP 5.6 / MYSQL 5.5
      - php: 5.6
-       env: DB=mysql MYSQL_SERVER_VERSION=5.5
+       env: DB=mysql MYSQL_VERSION=5.5
        dist: trusty
        sudo: required
        addons: *php5_addon
        before_install: *before_install_mysql55
+
+     # PHP 5.6 / MYSQL 5.6
      - php: 5.6
-       env: DB=mysql MYSQL_SERVER_VERSION=5.6
+       env: DB=mysql MYSQL_VERSION=5.6
        dist: trusty
        sudo: required
        addons: *php5_addon
-#     - php: 7
-#       env: DB=mysql MYSQL_SERVER_VERSION=5.6
-#       dist: trusty
-#       sudo: required
-#       addons:
-#         apt:
-#           packages: *pkg_php7_packages
+
+    # Following build could be unstable.
+    allow_failures:
+
+     # PHP 5.6 / MYSQL 5.7
+     - php: 5.6
+       env: DB=mysql MYSQL_VERSION=5.7
+       dist: trusty
+       sudo: required
+       addons: *php5_addon
+       # Mysql 5.5 requires extra operations to be installed.
+       before_install: &before_install_mysql57
+         - sudo service mysql stop
+         - sudo rm -fr /var/lib/mysql
+         - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" install mysql-server-5.7 mysql-server-core-5.7 mysql-client-5.7
+         - sudo service mysql restart
+
+     # PHP 7 / MYSQL 5.6
+     - php: 7
+       env: DB=mysql MYSQL_SERVER_VERSION=5.6
+       dist: trusty
+       sudo: required
+       addons: &php7_addon
+         apt:
+           packages:
+             - php7-memcached
+             - php7-common
+             - php7-curl
+             - php7-mcrypt
+             - php7-mysql
+
+     # PHP 7 / MYSQL 5.7
+     - php: 7
+       env: DB=mysql MYSQL_SERVER_VERSION=5.7
+       dist: trusty
+       sudo: required
+       addons: *php7_addon
 
 before_script:
   - wget http://getcomposer.org/composer.phar
