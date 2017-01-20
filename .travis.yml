@@ -104,7 +104,7 @@ matrix:
       env: DB=mysql MYSQL_VERSION=5.6
 
 before_script:
-  - ./.travis_before_script.sh
+  - sh .travis_before_script.sh
 
 script:
   - mkdir -p build/logs
