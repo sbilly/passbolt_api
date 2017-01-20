@@ -156,7 +156,7 @@ class UserTest extends CakeTestCase {
 	 */
 	public function testSetActive() {
 		// Try to get a user that doesn't exist
-		$user = User::setActive(String::UUID());
+		$user = User::setActive(CakeString::UUID());
 		$this->assertEquals($user, false, 'User::setActive should return false');
 	}
 

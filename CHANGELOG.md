@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Fixed
+- PASSBOLT-1849: Travis matrix jobs should take care of PHP 5.6, PHP 5.7, Mysql 5.5, Mysql 5.6, Mysql 5.7
+- PASSBOLT-1797: Fix PHP7 glitches, add a travis job for PHP7
 
 ## [1.3.2] - 2017-01-16
 ### Fixed
