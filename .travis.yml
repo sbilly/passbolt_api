@@ -129,7 +129,7 @@ before_script:
   - sed -i "s/76859309657453542496749683645/76859309357453542496749683645/" ./app/Config/core.php
   - sed -i "s/\/\/Configure::write('App.fullBaseUrl',\s'http:\/\/example.com');/Configure::write('App.fullBaseUrl', 'http:\/\/127.0.0.1');/" ./app/Config/core.php
   - sed -i "s/\/\/date_default_timezone_set('UTC');/date_default_timezone_set('UTC');/" ./app/Config/core.php
-  - sed -i "s/'engine' => 'File',/'engine' => 'Memcached'," ./app/Config/core.php
+  - sed -i "s/'engine' => 'File',/'engine' => 'Memcached',/" ./app/Config/core.php
   - echo "<?php
     \$config = array(
       'App' => array(
