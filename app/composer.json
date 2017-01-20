@@ -17,8 +17,12 @@
 	"config": {
 		"vendor-dir": "Vendor"
 	},
+	"repositories": [{
+		"type": "vcs",
+		"url": "https://github.com/passbolt/cakephp-file-storage.git"
+	}],
 	"require": {
-		"burzum/file-storage": "0.*",
+		"burzum/cakephp-file-storage": "dev-feature/PASSBOLT-1797",
 		"burzum/cakephp-imagine-plugin": "1.x",
 		"burzum/cakephp-html-purifier" : "1.1.0",
 		"lorenzo/cakephp-email-queue": "1.0",
@@ -29,7 +33,7 @@
 	},
 	"extra": {
 		"installer-paths": {
-			"Plugin/HtmlPurifier": ["burzum/cakephp-html-purifier"]
+			"Plugin/{$name}": ["cakephp-plugin"]
 		}
     }
 }
