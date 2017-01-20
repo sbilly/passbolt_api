@@ -85,8 +85,8 @@ matrix:
       env: DB=mysql MYSQL_VERSION=5.7
 
 before_script:
-  - echo PHP_VERSION : ${TRAVIS_PHP_VERSION:0:3}
-  - echo MYSQL_VERSION : `mysql --version`
+  - echo "PHP_VERSION : ${TRAVIS_PHP_VERSION:0:3}"
+  - echo "MYSQL_VERSION : `mysql --version`"
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install --dev --no-interaction
   - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE passbolt;'; fi"
