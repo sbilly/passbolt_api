@@ -150,7 +150,7 @@ before_script:
 
 script:
   - mkdir -p build/logs
-  - app/Console/cake test app All --stderr --coverage-clover build/logs/clover.xml --configuration=app/Test/phpunit.xml --filter=AuthController
+  - app/Console/cake test app All --stderr --coverage-clover build/logs/clover.xml --configuration=app/Test/phpunit.xml
 
 after_script:
   - php Vendor/bin/coveralls -v
