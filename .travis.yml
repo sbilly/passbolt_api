@@ -79,10 +79,10 @@ matrix:
         apt:
           packages:
             - *common_pkg
-#      before_install:
-#        - LC_ALL=C.UTF-8 sudo add-apt-repository -y ppa:ondrej/php
-#        - sudo apt-get update
-#        - sudo apt-get install -y php-memcached
+      before_install:
+        - LC_ALL=C.UTF-8 sudo add-apt-repository -y ppa:ondrej/php
+        - sudo apt-get update
+        - sudo apt-get install -y php-memcached
 
   allow_failures:
     - php: 5.6
