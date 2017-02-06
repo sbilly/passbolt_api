@@ -59,7 +59,15 @@ matrix:
       env: DB=mysql MYSQL_VERSION=5.7
       dist: trusty
       sudo: required
-      addons: *php5_addon
+      addons:
+        apt:
+          packages:
+            - *common_pkg
+            - php5-memcached
+            - php5-common
+            - php5-curl
+            - php5-mcrypt
+            - php5-mysql
       # Mysql 5.7 requires extra operations to be installed.
       before_install: &before_install_mysql57
         - echo mysql-apt-config mysql-apt-config/select-server select mysql-5.7 | sudo debconf-set-selections
